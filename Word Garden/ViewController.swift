@@ -18,7 +18,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var playAgainButton: UIButton!
     @IBOutlet weak var flowerImageView: UIImageView!
     
-    var wordToGuess = "SWIFT"
+    let wordsToGuess = ["SWIFT",
+                        "HELLO",
+                        "FLOWER"]
+    var wordIndex = 0
+    var wordToGuess = ""
     var lettersGuessed = ""
     let maxWrongGuesses = 8
     var wrongGuessesRemaining = 8
@@ -27,6 +31,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        wordToGuess = wordsToGuess[wordIndex]
         guessLetterButton.isEnabled = false
         playAgainButton.isHidden = true
         formatUserGuessLabel()
@@ -108,6 +113,15 @@ class ViewController: UIViewController {
     
     @IBAction func playAgainButtonPressed(_ sender: UIButton) {
         guessedLetterField.resignFirstResponder()
+        
+        wordIndex += 1
+        print(wordIndex)
+        if wordIndex == wordsToGuess.count {
+            wordIndex = 0
+        }
+        print(wordIndex)
+        wordToGuess = wordsToGuess[wordIndex]
+        
         playAgainButton.isHidden = true
         guessedLetterField.isEnabled = true
         guessLetterButton.isEnabled = false
